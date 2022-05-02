@@ -23,6 +23,7 @@
 #include <boost/io/ostream_put.hpp>
 #include <boost/utility/string_view_fwd.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/assert.hpp>
 
 #include <cstddef>
 #include <stdexcept>
@@ -140,15 +141,13 @@ namespace boost {
         void clear() BOOST_NOEXCEPT { len_ = 0; }          // Boost extension
 
         BOOST_CXX14_CONSTEXPR void remove_prefix(size_type n) {
-            if ( n > len_ )
-                n = len_;
+            BOOST_ASSERT(n <= size());
             ptr_ += n;
             len_ -= n;
             }
 
         BOOST_CXX14_CONSTEXPR void remove_suffix(size_type n) {
-            if ( n > len_ )
-                n = len_;
+            BOOST_ASSERT(n <= size());
             len_ -= n;
             }
 
